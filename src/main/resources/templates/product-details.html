@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+
+<h1>Product Details</h1>
+
+<!--/*@thymesVar id="product" type="org.pk.lab4.model.Product"*/-->
+<p>ID: <span th:text="${product.id}"></span></p>
+<p>Name: <span th:text="${product.name}"></span></p>
+<p>Description: <span th:text="${product.description}"></span></p>
+<p>Quantity: <span th:text="${product.quantity}"></span></p>
+<p>Price: <span th:text="${product.price}"></span></p>
+<p>Weight: <span th:text="${product.weight}"></span></p>
+<p>Availability: <span th:text="${product.available} ? 'Available' : 'Unavailable'"></span></p>
+<p>Category: <span th:text="${product.productCategory}"></span></p>
+<p>Creation date: <span th:text="${product.dateAdded}"></span></p>
+<p>Last update date: <span th:text="${product.dateLastUpdate}"></span></p>
+
+<a th:href="@{/products}">Go back to product list</a>
+
+</body>
+</html>

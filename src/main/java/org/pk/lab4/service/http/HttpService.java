@@ -12,7 +12,7 @@ public interface HttpService {
 
     void createProduct(Product product);
 
-    void updateProduct(String productId, Product product);
+    Product updateProduct(String productId, Product product);
 
     void deleteProduct(String productId);
 

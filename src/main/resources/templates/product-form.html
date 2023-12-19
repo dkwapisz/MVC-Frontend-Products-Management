@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add new product</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+
+<h1>Add new product</h1>
+
+<!--/*@thymesVar id="product" type="org.pk.lab4.model.Product"*/-->
+<form th:object="${product}" th:action="@{/products}" method="post">
+    <input type="hidden" th:field="*{id}" />
+
+    <label th:for="name">Name:</label>
+    <input type="text" th:field="*{name}" />
+
+    <label th:for="description">Description:</label>
+    <textarea th:field="*{description}"></textarea>
+
+    <label th:for="quantity">Quantity:</label>
+    <input type="number" th:field="*{quantity}" />
+
+    <label th:for="price">Price:</label>
+    <input type="number" th:field="*{price}" />
+
+    <label th:for="weight">Weight:</label>
+    <input type="number" th:field="*{weight}" />
+
+    <label th:for="productCategory">Category:</label>
+    <input type="text" th:field="*{productCategory}" />
+
+    <button type="submit">Save</button>
+</form>
+
+<a th:href="@{/products}">Go back to product list</a>
+
+</body>
+</html>
