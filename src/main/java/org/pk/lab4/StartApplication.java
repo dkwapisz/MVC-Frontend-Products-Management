@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ZtpLab4DawidKwapiszApplication {
+public class StartApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ZtpLab4DawidKwapiszApplication.class, args);
+        SpringApplication.run(StartApplication.class, args);
     }
 
 }
