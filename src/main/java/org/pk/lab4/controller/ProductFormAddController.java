@@ -1,6 +1,8 @@
 package org.pk.lab4.controller;
 
 import org.pk.lab4.model.Product;
+import org.pk.lab4.service.exception.ServerErrorException;
+import org.pk.lab4.service.exception.ValidationException;
 import org.pk.lab4.service.model.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +22,13 @@ public class ProductFormAddController {
 
     @PostMapping
     public String addProduct(Model model, @ModelAttribute("product") Product product) {
-        Product createdProduct = productService.createProduct(product);
-        model.addAttribute("product", createdProduct);
-        return "product-details";
+        try {
+            Product createdProduct = productService.createProduct(product);
+            model.addAttribute("product", createdProduct);
+            return "product-details";
+        } catch (ValidationException | ServerErrorException e) {
+            model.addAttribute("error", e.getMessage());
+            return "product-form-add";
+        }
     }
 }

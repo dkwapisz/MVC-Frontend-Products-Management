@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Details</title>
     <link rel="stylesheet" type="text/css" href="/style.css">
+    <!--/*@thymesVar id="error" type="java.lang.String"*/-->
+    <script th:if="${error}" th:inline="javascript">
+        alert([[${error}]]);
+    </script>
 </head>
 <body>
 

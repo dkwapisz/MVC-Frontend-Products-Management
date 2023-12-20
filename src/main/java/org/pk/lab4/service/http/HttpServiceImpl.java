@@ -2,10 +2,15 @@ package org.pk.lab4.service.http;
 
 import org.pk.lab4.model.Product;
 import org.pk.lab4.model.ProductSummary;
+import org.pk.lab4.service.exception.NotFoundException;
+import org.pk.lab4.service.exception.ServerErrorException;
+import org.pk.lab4.service.exception.ValidationException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -32,6 +37,10 @@ public class HttpServiceImpl implements HttpService {
                 .uri(productBaseUrl)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
+                .onStatus(
+                        status -> status.equals(HttpStatus.INTERNAL_SERVER_ERROR),
+                        clientResponse -> Mono.error(new NotFoundException())
+                )
                 .bodyToFlux(ProductSummary.class)
                 .collectList()
                 .block();
@@ -42,6 +51,16 @@ public class HttpServiceImpl implements HttpService {
         return webClient.get()
                 .uri(productBaseParamUrl, productId)
                 .retrieve()
+                .onStatus(
+                        status -> status.is4xxClientError() || status.is5xxServerError(),
+                        clientResponse -> {
+                            if (clientResponse.statusCode().equals(HttpStatus.NOT_FOUND)) {
+                                return Mono.error(new NotFoundException());
+                            } else {
+                                return Mono.error(new ServerErrorException());
+                            }
+                        }
+                )
                 .bodyToMono(Product.class)
                 .block();
     }
@@ -52,6 +71,16 @@ public class HttpServiceImpl implements HttpService {
                 .uri(productBaseUrl)
                 .bodyValue(product)
                 .retrieve()
+                .onStatus(
+                        status -> status.is4xxClientError() || status.is5xxServerError(),
+                        clientResponse -> {
+                            if (clientResponse.statusCode().equals(HttpStatus.BAD_REQUEST)) {
+                                return Mono.error(new ValidationException());
+                            } else {
+                                return Mono.error(new ServerErrorException());
+                            }
+                        }
+                )
                 .bodyToMono(Product.class)
                 .block();
     }
@@ -62,6 +91,18 @@ public class HttpServiceImpl implements HttpService {
                 .uri(productBaseParamUrl, productId)
                 .bodyValue(product)
                 .retrieve()
+                .onStatus(
+                        status -> status.is4xxClientError() || status.is5xxServerError(),
+                        clientResponse -> {
+                            if (clientResponse.statusCode().equals(HttpStatus.NOT_FOUND)) {
+                                return Mono.error(new NotFoundException());
+                            } else if (clientResponse.statusCode().equals(HttpStatus.BAD_REQUEST)) {
+                                return Mono.error(new ValidationException());
+                            } else {
+                                return Mono.error(new ServerErrorException());
+                            }
+                        }
+                )
                 .bodyToMono(Product.class)
                 .block();
     }
@@ -71,6 +112,16 @@ public class HttpServiceImpl implements HttpService {
         webClient.delete()
                 .uri(productBaseParamUrl, productId)
                 .retrieve()
+                .onStatus(
+                        status -> status.is4xxClientError() || status.is5xxServerError(),
+                        clientResponse -> {
+                            if (clientResponse.statusCode().equals(HttpStatus.NOT_FOUND)) {
+                                return Mono.error(new NotFoundException());
+                            } else {
+                                return Mono.error(new ServerErrorException());
+                            }
+                        }
+                )
                 .toBodilessEntity()
                 .block();
     }

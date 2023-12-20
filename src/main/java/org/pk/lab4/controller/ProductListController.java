@@ -2,12 +2,15 @@ package org.pk.lab4.controller;
 
 import org.pk.lab4.model.Product;
 import org.pk.lab4.model.ProductSummary;
+import org.pk.lab4.service.exception.NotFoundException;
+import org.pk.lab4.service.exception.ServerErrorException;
 import org.pk.lab4.service.model.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -23,32 +26,57 @@ public class ProductListController {
 
     @GetMapping
     public String getProductList(Model model) {
-        List<ProductSummary> productSummaryList = productService.getAllProducts();
-        model.addAttribute("productSummaries", productSummaryList);
-        return "product-list";
+        try {
+            List<ProductSummary> productSummaryList = productService.getAllProducts();
+            model.addAttribute("productSummaries", productSummaryList);
+            return "product-list";
+        } catch (NotFoundException | ServerErrorException e) {
+            model.addAttribute("error", e.getMessage());
+            return "product-list";
+        }
     }
 
     @GetMapping("/details/{id}")
-    public String goToProductDetails(Model model, @PathVariable("id") String productId) {
-        Product product = productService.getProductDetails(productId);
-        model.addAttribute("product", product);
-        return "product-details";
+    public String goToProductDetails(Model model, @PathVariable("id") String productId, RedirectAttributes redirectAttributes) {
+        try {
+            Product product = productService.getProductDetails(productId);
+            model.addAttribute("product", product);
+            return "product-details";
+        } catch (NotFoundException | ServerErrorException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/products/list";
+        }
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteProductById(@PathVariable("id") String productId) {
-        productService.deleteProduct(productId);
-        return "redirect:/products/list";
-    }
-
-    @GetMapping("/edit/{id}")
-    public String goToEditForm(@PathVariable("id") String productId) {
-        return "redirect:/products/form/edit/" + productId;
+    public String deleteProductById(@PathVariable("id") String productId, RedirectAttributes redirectAttributes) {
+        try {
+            productService.deleteProduct(productId);
+            return "redirect:/products/list";
+        } catch (NotFoundException | ServerErrorException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/products/list";
+        }
     }
 
     @GetMapping("/create")
-    public String goToAddForm(Model model) {
-        model.addAttribute("product", new Product());
-        return "product-form-add";
+    public String goToAddForm(Model model, RedirectAttributes redirectAttributes) {
+        try {
+            model.addAttribute("product", new Product());
+            return "product-form-add";
+        } catch (NotFoundException | ServerErrorException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/products/list";
+        }
+    }
+
+    @GetMapping("/edit/{id}")
+    public String goToEditForm(@PathVariable("id") String productId, RedirectAttributes redirectAttributes) {
+        try {
+            return "redirect:/products/form/edit/" + productId;
+        } catch (NotFoundException | ServerErrorException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/products/list";
+        }
     }
 }
