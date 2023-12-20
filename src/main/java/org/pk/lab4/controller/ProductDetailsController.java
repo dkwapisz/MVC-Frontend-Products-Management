@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/products/details")
 public class ProductDetailsController {
 
+    // TODO Remove?
+
     private final ProductService productService;
 
     public ProductDetailsController(ProductService productService) {

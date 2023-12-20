@@ -4,6 +4,7 @@ import org.pk.lab4.model.Product;
 import org.pk.lab4.model.ProductSummary;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -51,7 +52,9 @@ public class HttpServiceImpl implements HttpService {
         webClient.post()
                 .uri(productBaseUrl)
                 .bodyValue(product)
-                .retrieve();
+                .retrieve()
+                .toEntity(Void.class)
+                .block();
     }
 
     @Override
@@ -68,6 +71,8 @@ public class HttpServiceImpl implements HttpService {
     public void deleteProduct(String productId) {
         webClient.delete()
                 .uri(productBaseParamUrl, productId)
-                .retrieve();
+                .retrieve()
+                .toBodilessEntity()
+                .block();
     }
 }

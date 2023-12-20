@@ -5,12 +5,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/products/form")
-public class ProductFormController {
+@RequestMapping("/products/form/add")
+public class ProductFormAddController {
+
+    // TODO Impl
 
     private final ProductService productService;
 
-    public ProductFormController(ProductService productService) {
+    public ProductFormAddController(ProductService productService) {
         this.productService = productService;
     }
 }

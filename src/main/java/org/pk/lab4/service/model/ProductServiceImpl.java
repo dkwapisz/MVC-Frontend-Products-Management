@@ -32,8 +32,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void updateProduct(String productId, Product product) {
-        httpService.updateProduct(productId, product);
+    public Product updateProduct(String productId, Product product) {
+        return httpService.updateProduct(productId, product);
     }
 
     @Override
