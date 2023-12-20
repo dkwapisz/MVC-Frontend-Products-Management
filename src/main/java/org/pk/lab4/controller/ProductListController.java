@@ -43,4 +43,10 @@ public class ProductListController {
     public String goToEditForm(@PathVariable("id") String productId) {
         return "redirect:/products/form/edit/" + productId;
     }
+
+    @GetMapping("/create")
+    public String goToAddForm(Model model) {
+        model.addAttribute("product", new Product());
+        return "product-form-add";
+    }
 }

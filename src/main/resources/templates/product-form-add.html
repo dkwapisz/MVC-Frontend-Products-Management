@@ -1,1 +1,55 @@
-<!--TODO Add-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add new product</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+
+<h1>Add new product</h1>
+
+<!--/*@thymesVar id="product" type="org.pk.lab4.model.Product"*/-->
+<form th:object="${product}" th:action="@{/products/form/add}" method="post">
+    <label th:for="name">Name:</label>
+    <label>
+        <input type="text" th:field="*{name}"/>
+    </label>
+
+    <label th:for="description">Description:</label>
+    <label>
+        <textarea th:field="*{description}"></textarea>
+    </label>
+
+    <label th:for="quantity">Quantity:</label>
+    <label>
+        <input type="number" step="1" th:field="*{quantity}" min="0"/>
+    </label>
+
+    <label th:for="price">Price:</label>
+    <label>
+        <input type="number" step="0.01" th:field="*{price}" min="0.01"/>
+    </label>
+
+    <label th:for="weight">Weight:</label>
+    <label>
+        <input type="number" step="0.01" th:field="*{weight}" min="0.01"/>
+    </label>
+
+    <label th:for="productCategory">Category:</label>
+    <label>
+        <select th:field="*{productCategory}">
+            <option th:each="category : ${T(org.pk.lab4.model.ProductCategory).values()}"
+                    th:value="${category}" th:text="${category.toString()}">
+            </option>
+        </select>
+    </label>
+
+    <button type="submit">Create</button>
+</form>
+
+<a th:href="@{/products/list}">Go back to product list</a>
+
+</body>
+</html>

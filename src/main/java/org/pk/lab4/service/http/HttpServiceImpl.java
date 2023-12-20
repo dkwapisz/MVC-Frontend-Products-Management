@@ -48,12 +48,12 @@ public class HttpServiceImpl implements HttpService {
     }
 
     @Override
-    public void createProduct(Product product) {
-        webClient.post()
+    public Product createProduct(Product product) {
+        return webClient.post()
                 .uri(productBaseUrl)
                 .bodyValue(product)
                 .retrieve()
-                .toEntity(Void.class)
+                .bodyToMono(Product.class)
                 .block();
     }
 

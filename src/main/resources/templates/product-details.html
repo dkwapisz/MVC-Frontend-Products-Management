@@ -11,17 +11,52 @@
 <h1>Product Details</h1>
 
 <!--/*@thymesVar id="product" type="org.pk.lab4.model.Product"*/-->
-<p>ID: <span th:text="${product.id}"></span></p>
-<p>Name: <span th:text="${product.name}"></span></p>
-<p>Description: <span th:text="${product.description}"></span></p>
-<p>Quantity: <span th:text="${product.quantity}"></span></p>
-<p>Price: <span th:text="${product.price}"></span></p>
-<p>Weight: <span th:text="${product.weight}"></span></p>
-<p>Availability: <span th:text="${product.available} ? 'Available' : 'Unavailable'"></span></p>
-<p>Category: <span th:text="${product.productCategory}"></span></p>
-<p>Creation date: <span th:text="${product.dateAdded}"></span></p>
-<p>Last update date: <span th:text="${product.dateLastUpdate}"></span></p>
+<table>
+    <tr>
+        <td><b>ID:</b></td>
+        <td><span th:text="${product.id}"></span></td>
+    </tr>
+    <tr>
+        <td><b>Name:</b></td>
+        <td><span th:text="${product.name}"></span></td>
+    </tr>
+    <tr>
+        <td><b>Description:</b></td>
+        <td><span th:text="${product.description}"></span></td>
+    </tr>
+    <tr>
+        <td><b>Quantity:</b></td>
+        <td><span th:text="${product.quantity}"></span></td>
+    </tr>
+    <tr>
+        <td><b>Price:</b></td>
+        <td><span th:text="${product.price}"></span></td>
+    </tr>
+    <tr>
+        <td><b>Weight:</b></td>
+        <td><span th:text="${product.weight}"></span></td>
+    </tr>
+    <tr>
+        <td><b>Availability:</b></td>
+        <td><span th:text="${product.available} ? 'Available' : 'Unavailable'"></span></td>
+    </tr>
+    <tr>
+        <td><b>Category:</b></td>
+        <td><span th:text="${product.productCategory}"></span></td>
+    </tr>
+    <tr>
+        <td><b>Creation date:</b></td>
+        <td><span th:text="${product.dateAdded}"></span></td>
+    </tr>
+    <tr>
+        <td><b>Last update date:</b></td>
+        <td><span th:text="${product.dateLastUpdate}"></span></td>
+    </tr>
+</table>
 
+<a th:href="@{/products/list/edit/{id}(id=${product.id})}">Edit</a>
+<a th:href="@{/products/list/delete/{id}(id=${product.id})}">Remove</a>
+<h1></h1>
 <a th:href="@{/products/list}">Go back to product list</a>
 
 </body>

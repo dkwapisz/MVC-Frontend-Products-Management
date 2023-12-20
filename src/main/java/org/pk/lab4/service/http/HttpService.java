@@ -10,7 +10,7 @@ public interface HttpService {
     List<ProductSummary> getAllProducts();
     Product getProductDetails(String productId);
 
-    void createProduct(Product product);
+    Product createProduct(Product product);
 
     Product updateProduct(String productId, Product product);
 
