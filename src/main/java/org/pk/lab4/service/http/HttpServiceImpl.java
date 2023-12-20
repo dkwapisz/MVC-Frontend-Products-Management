@@ -4,7 +4,6 @@ import org.pk.lab4.model.Product;
 import org.pk.lab4.model.ProductSummary;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 

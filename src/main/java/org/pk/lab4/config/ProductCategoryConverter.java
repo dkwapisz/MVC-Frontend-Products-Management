@@ -1,4 +1,4 @@
-package org.pk.lab4.model.utils;
+package org.pk.lab4.config;
 
 import org.pk.lab4.model.ProductCategory;
 import org.springframework.core.convert.converter.Converter;
