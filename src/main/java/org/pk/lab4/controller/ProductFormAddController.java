@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/products/form/add")
 public class ProductFormAddController {
 
-    // TODO Impl
-
     private final ProductService productService;
 
     public ProductFormAddController(ProductService productService) {
@@ -22,7 +20,7 @@ public class ProductFormAddController {
     }
 
     @PostMapping
-    public String editProduct(Model model, @ModelAttribute("product") Product product) {
+    public String addProduct(Model model, @ModelAttribute("product") Product product) {
         Product createdProduct = productService.createProduct(product);
         model.addAttribute("product", createdProduct);
         return "product-details";
