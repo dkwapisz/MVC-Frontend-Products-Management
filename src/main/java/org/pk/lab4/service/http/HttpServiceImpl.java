@@ -17,8 +17,6 @@ import java.util.List;
 @Service
 public class HttpServiceImpl implements HttpService {
 
-    // TODO Request status codes validation (onStatus method)
-
     private final WebClient webClient;
     private final String productBaseUrl;
     private final String productBaseParamUrl;
