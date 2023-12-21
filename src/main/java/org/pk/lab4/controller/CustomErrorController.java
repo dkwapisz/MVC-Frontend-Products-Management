@@ -11,7 +11,6 @@ public class CustomErrorController implements ErrorController {
     @RequestMapping("/error")
     public String handleError(Model model) {
         model.addAttribute("errorMsg", "Cannot connect to the server. Something went wrong.");
-
         return "error";
     }
 }
