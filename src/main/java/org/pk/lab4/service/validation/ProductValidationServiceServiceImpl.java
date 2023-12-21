@@ -7,7 +7,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 @Service
-public class ProductValidationImpl implements ProductValidation {
+public class ProductValidationServiceServiceImpl implements ProductValidationService {
 
     @Override
     public boolean isCreateValid(Product product) {

@@ -2,9 +2,9 @@ package org.pk.lab4.service.http;
 
 import org.pk.lab4.model.Product;
 import org.pk.lab4.model.ProductSummary;
-import org.pk.lab4.service.exception.NotFoundException;
-import org.pk.lab4.service.exception.ServerErrorException;
-import org.pk.lab4.service.exception.ValidationException;
+import org.pk.lab4.exception.NotFoundException;
+import org.pk.lab4.exception.ServerErrorException;
+import org.pk.lab4.exception.ValidationException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

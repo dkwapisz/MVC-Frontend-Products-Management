@@ -1,9 +1,9 @@
 package org.pk.lab4.controller;
 
 import org.pk.lab4.model.Product;
-import org.pk.lab4.service.exception.NotFoundException;
-import org.pk.lab4.service.exception.ServerErrorException;
-import org.pk.lab4.service.exception.ValidationException;
+import org.pk.lab4.exception.NotFoundException;
+import org.pk.lab4.exception.ServerErrorException;
+import org.pk.lab4.exception.ValidationException;
 import org.pk.lab4.service.model.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

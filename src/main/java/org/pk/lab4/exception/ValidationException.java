@@ -1,4 +1,4 @@
-package org.pk.lab4.service.exception;
+package org.pk.lab4.exception;
 
 public class ValidationException extends RuntimeException {
 

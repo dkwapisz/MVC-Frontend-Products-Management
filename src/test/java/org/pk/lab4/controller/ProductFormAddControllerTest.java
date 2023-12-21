@@ -6,8 +6,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.pk.lab4.model.Product;
-import org.pk.lab4.service.exception.ServerErrorException;
-import org.pk.lab4.service.exception.ValidationException;
+import org.pk.lab4.exception.ServerErrorException;
+import org.pk.lab4.exception.ValidationException;
 import org.pk.lab4.service.model.ProductService;
 import org.springframework.ui.Model;
 

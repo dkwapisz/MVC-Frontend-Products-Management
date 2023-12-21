@@ -2,9 +2,9 @@ package org.pk.lab4.service.model;
 
 import org.pk.lab4.model.Product;
 import org.pk.lab4.model.ProductSummary;
-import org.pk.lab4.service.exception.ValidationException;
+import org.pk.lab4.exception.ValidationException;
 import org.pk.lab4.service.http.HttpService;
-import org.pk.lab4.service.validation.ProductValidation;
+import org.pk.lab4.service.validation.ProductValidationService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,11 +13,11 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     private final HttpService httpService;
-    private final ProductValidation productValidation;
+    private final ProductValidationService productValidationService;
 
-    public ProductServiceImpl(HttpService httpService, ProductValidation productValidation) {
+    public ProductServiceImpl(HttpService httpService, ProductValidationService productValidationService) {
         this.httpService = httpService;
-        this.productValidation = productValidation;
+        this.productValidationService = productValidationService;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product createProduct(Product product) {
-        if (productValidation.isCreateValid(product)) {
+        if (productValidationService.isCreateValid(product)) {
             return httpService.createProduct(product);
         } else {
             throw new ValidationException();
@@ -41,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product updateProduct(String productId, Product product) {
-        if (productValidation.isUpdateValid(product)) {
+        if (productValidationService.isUpdateValid(product)) {
             return httpService.updateProduct(productId, product);
         } else {
             throw new ValidationException();
