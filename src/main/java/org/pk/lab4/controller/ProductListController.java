@@ -60,23 +60,13 @@ public class ProductListController {
     }
 
     @GetMapping("/create")
-    public String goToAddForm(Model model, RedirectAttributes redirectAttributes) {
-        try {
-            model.addAttribute("product", new Product());
-            return "product-form-add";
-        } catch (NotFoundException | ServerErrorException e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/products/list";
-        }
+    public String goToAddForm(Model model) {
+        model.addAttribute("product", new Product());
+        return "product-form-add";
     }
 
     @GetMapping("/edit/{id}")
-    public String goToEditForm(@PathVariable("id") String productId, RedirectAttributes redirectAttributes) {
-        try {
-            return "redirect:/products/form/edit/" + productId;
-        } catch (NotFoundException | ServerErrorException e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/products/list";
-        }
+    public String goToEditForm(@PathVariable("id") String productId) {
+        return "redirect:/products/form/edit/" + productId;
     }
 }
